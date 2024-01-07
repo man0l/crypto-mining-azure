@@ -8,6 +8,10 @@ resource "azurerm_linux_virtual_machine" "pernik_vm" {
   network_interface_ids = [var.network_interface_id]
   custom_data           = base64encode(var.custom_data)
   disable_password_authentication = false
+  priority = "Spot"
+  eviction_policy = "Deallocate"  # or "Delete" based on your preference
+  max_bid_price = -1  # -1 for Azure to set a price or set your maximum price
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
