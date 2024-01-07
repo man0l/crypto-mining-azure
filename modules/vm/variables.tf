@@ -18,6 +18,11 @@ variable "admin_username" {
   type        = string
 }
 
+variable "admin_password" {
+  description = "Admin password for the VM"
+  type        = string
+}
+
 variable "custom_data" {
   description = "Custom data to provide when the machine is provisioned"
   type        = string

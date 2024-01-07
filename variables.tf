@@ -22,6 +22,11 @@ variable "admin_username" {
   default     = "azureuser"  # Default value, can be overridden in tfvars
 }
 
+variable "admin_password" {
+  description = "Admin pass for the VM"
+  type        = string
+}
+
 variable "custom_data" {
   description = "Custom data to provide when the machine is provisioned"
   type        = string
