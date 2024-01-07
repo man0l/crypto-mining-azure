@@ -19,6 +19,7 @@ module "vm" {
   location            = azurerm_resource_group.pernik.location
   vm_size             = var.instance_type
   admin_username      = var.admin_username
+  admin_password      = var.admin_password
   custom_data         = var.custom_data
   network_interface_id = module.network.network_interface_id
 }
