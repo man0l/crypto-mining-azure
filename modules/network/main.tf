@@ -16,10 +16,6 @@ resource "azurerm_network_interface" "pernik_nic" {
     subnet_id                     = azurerm_subnet.pernik_subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id = azurerm_public_ip.pernik_public_ip[count.index].id
-    name                          = "ipconfig1"
-    subnet_id                     = azurerm_subnet.pernik_subnet.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.pernik_public_ip.id
   }
 }
 
