@@ -28,7 +28,7 @@ resource "azurerm_subnet" "pernik_subnet" {
 
 resource "azurerm_public_ip" "pernik_public_ip" {
   count               = var.vm_count
-  name                = "${var.resource_group_name}-publicip"
+  name                = "${var.resource_group_name}-publicip${count.index}"
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Dynamic"
