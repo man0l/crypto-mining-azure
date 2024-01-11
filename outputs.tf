@@ -17,3 +17,8 @@ output "network_interface_id" {
   description = "The ID of the network interface"
   value       = module.network.network_interface_id
 }
+
+output "public_ip_address" {
+  value = azurerm_public_ip.pernik_public_ip.ip_address
+  description = "The public IP address allocated for the public IP resource"
+}

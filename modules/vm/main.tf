@@ -6,7 +6,7 @@ resource "azurerm_linux_virtual_machine" "pernik_vm" {
   admin_username        = var.admin_username
   admin_password        = var.admin_password
   network_interface_ids = [var.network_interface_id]
-  custom_data           = base64encode(var.custom_data)
+  #custom_data           = base64encode(var.custom_data)
   disable_password_authentication = false
   priority = "Spot"
   eviction_policy = "Deallocate"  # or "Delete" based on your preference
@@ -25,4 +25,11 @@ resource "azurerm_linux_virtual_machine" "pernik_vm" {
   }
 
   # Add additional configurations such as boot diagnostics, identity, etc., as required.
+}
+
+resource "azurerm_ssh_public_key" "pernik_key" {
+  name                = "${var.resource_group_name}-key"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  public_key          = file(var.ssh_public_key_path)
 }

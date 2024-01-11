@@ -1,0 +1,72 @@
+---
+- hosts: all
+  become: yes
+  vars:    
+    user_wallet: "ZEPHYR2v4R7eR3s7MRQsYVGsntm1cPy9xBoDHWy832V9aw1uSEW4ahhEPNKZeo6zd2EJxMWkMiQgPFKJ2R9tLuHLPsbJTwcCikf33"
+    user_pool_port: "fastpool.xyz:10002"
+
+  tasks:
+    - name: Update and install dependencies
+      apt:
+        update_cache: yes
+        name:
+          - git
+        state: latest
+
+    - name: Clone the cryptocloud repository
+      git:
+        repo: 'https://github.com/man0l/cryptocloud.git'
+        dest: "{{ ansible_env.HOME }}/cryptocloud"
+        clone: yes
+        force: yes
+    - name: Copy and run  install.sh
+      copy:
+        src: "{{ ansible_env.HOME }}/cryptocloud/install.sh"
+        dest: "{{ ansible_env.HOME }}/install.sh"
+        remote_src: yes
+        mode: '0755'
+    - name: Run install.sh
+      shell: "{{ ansible_env.HOME }}/install.sh"
+      args:
+        chdir: "{{ ansible_env.HOME }}"
+
+    - name: Create start_mining.sh script
+      copy:
+        dest: "{{ ansible_env.HOME }}/start_mining.sh"
+        content: |
+          #!/bin/bash
+          cd $HOME/xmrig/build
+          ./xmrig --threads=3 --rig-id=pernik-digital-ocean -u {{ user_wallet }} -o {{ user_pool_port }}
+        mode: '0755'
+
+    - name: Create systemd service file for mining process
+      copy:
+        dest: "/etc/systemd/system/mining.service"
+        content: |
+          [Unit]
+          Description=Mining service
+
+          [Service]
+          ExecStart={{ ansible_env.HOME }}/start_mining.sh
+          Restart=always
+          User=root
+
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+
+    - name: Reload systemd to apply new service
+      systemd:
+        daemon_reload: yes
+
+    - name: Enable mining service
+      systemd:
+        name: mining.service
+        enabled: yes
+
+    - name: Start mining service
+      systemd:
+        name: mining.service
+        state: started
+        enabled: yes
+

@@ -56,3 +56,8 @@ variable "image_version" {
   type        = string
   default     = "latest"  # Example default value
 }
+
+variable "ssh_public_key_path" {
+  description = "Path to the SSH private key to use for connecting to the VM"
+  type        = string  
+}

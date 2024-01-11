@@ -38,3 +38,10 @@ variable "vm_size" {
   type        = number
   default     = 1  # Default value, can be overridden in tfvars
 }
+
+variable "ssh_public_key_path" {
+  description = "Path to the SSH private key to use for connecting to the VM"
+  type        = string
+  default     = "~/.ssh/id_rsa.pub"  # Default value, can be overridden in tfvars
+  
+}
