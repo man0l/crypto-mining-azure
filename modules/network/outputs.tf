@@ -5,5 +5,5 @@ output "virtual_network_name" {
 
 output "network_interface_id" {
   description = "The ID of the network interface"
-  value       = azurerm_network_interface.pernik_nic.id
+  value       = [for nic in azurerm_network_interface.pernik_nic : nic.id]
 }
