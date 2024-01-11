@@ -7,3 +7,7 @@ variable "location" {
   description = "Location for all resources"
   type        = string
 }
+variable "vm_count" {
+  description = "The number of VM instances"
+  type        = number
+}

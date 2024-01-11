@@ -6,11 +6,16 @@ resource "azurerm_virtual_network" "pernik_vnet" {
 }
 
 resource "azurerm_network_interface" "pernik_nic" {
-  name                = "${var.resource_group_name}-nic"
+  count               = var.vm_count
+  name                = "${var.resource_group_name}-nic${count.index}"
   location            = var.location
   resource_group_name = var.resource_group_name
 
   ip_configuration {
+    name                          = "ipconfig${count.index}"
+    subnet_id                     = azurerm_subnet.pernik_subnet.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.pernik_public_ip[count.index].id
     name                          = "ipconfig1"
     subnet_id                     = azurerm_subnet.pernik_subnet.id
     private_ip_address_allocation = "Dynamic"
@@ -26,6 +31,7 @@ resource "azurerm_subnet" "pernik_subnet" {
 }
 
 resource "azurerm_public_ip" "pernik_public_ip" {
+  count               = var.vm_count
   name                = "${var.resource_group_name}-publicip"
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -52,6 +58,7 @@ resource "azurerm_network_security_rule" "pernik_ssh_rule" {
   network_security_group_name = azurerm_network_security_group.pernik_nsg.name
 }
 resource "azurerm_network_interface_security_group_association" "pernik_nic_nsg_association" {
-  network_interface_id      = azurerm_network_interface.pernik_nic.id
+  count                   = var.vm_count
+  network_interface_id      = azurerm_network_interface.pernik_nic[count.index].id
   network_security_group_id = azurerm_network_security_group.pernik_nsg.id
 }
