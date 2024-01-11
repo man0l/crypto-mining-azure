@@ -33,7 +33,7 @@ variable "custom_data" {
   default     = ""
 }
 
-variable "vm_size" {
+variable "vm_count" {
   description = "The capacity (number of VM instances) to deploy"
   type        = number
   default     = 1  # Default value, can be overridden in tfvars

@@ -36,7 +36,7 @@
         content: |
           #!/bin/bash
           cd $HOME/xmrig/build
-          ./xmrig --threads=3 --rig-id=pernik-digital-ocean -u {{ user_wallet }} -o {{ user_pool_port }}
+          ./xmrig --threads=3 --rig-id=pernik-azure -u {{ user_wallet }} -o {{ user_pool_port }}
         mode: '0755'
 
     - name: Create systemd service file for mining process

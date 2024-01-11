@@ -61,3 +61,9 @@ variable "ssh_public_key_path" {
   description = "Path to the SSH private key to use for connecting to the VM"
   type        = string  
 }
+
+variable vm_count {
+  description = "Number of VMs to create"
+  type        = number
+  default     = 1
+}

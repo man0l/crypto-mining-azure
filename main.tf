@@ -7,12 +7,6 @@ resource "azurerm_resource_group" "pernik" {
   location = var.location
 }
 
-resource "azurerm_public_ip" "pernik_public_ip" {
-  name                = "${var.resource_group_name}-publicip"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.pernik.name
-  allocation_method   = "Dynamic"
-}
 
 module "network" {
   source              = "./modules/network"
@@ -20,10 +14,9 @@ module "network" {
   location            = azurerm_resource_group.pernik.location  
 }
 
-
-
 module "vm" {
   source              = "./modules/vm"
+  vm_count            = var.vm_count  
   resource_group_name = azurerm_resource_group.pernik.name
   location            = azurerm_resource_group.pernik.location
   vm_size             = var.instance_type

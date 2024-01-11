@@ -1,16 +1,20 @@
 resource "azurerm_linux_virtual_machine" "pernik_vm" {
-  name                  = "${var.resource_group_name}-vm"
+  count = var.vm_count
+  name                  = "${var.resource_group_name}-vm${count.index}"
   resource_group_name   = var.resource_group_name
   location              = var.location
   size                  = var.vm_size
   admin_username        = var.admin_username
-  admin_password        = var.admin_password
   network_interface_ids = [var.network_interface_id]
   #custom_data           = base64encode(var.custom_data)
-  disable_password_authentication = false
-  priority = "Spot"
-  eviction_policy = "Deallocate"  # or "Delete" based on your preference
-  max_bid_price = -1  # -1 for Azure to set a price or set your maximum price
+  disable_password_authentication = true
+  # priority = "Spot"
+  # eviction_policy = "Deallocate"  # or "Delete" based on your preference
+  # max_bid_price = -1  # -1 for Azure to set a price or set your maximum price
+  admin_ssh_key {
+    username   = var.admin_username
+    public_key = azurerm_ssh_public_key.pernik_key.public_key
+  }
 
   os_disk {
     caching              = "ReadWrite"
