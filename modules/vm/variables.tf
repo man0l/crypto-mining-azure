@@ -29,8 +29,8 @@ variable "custom_data" {
 }
 
 variable "network_interface_id" {
-  description = "ID of the network interface"
-  type        = string
+  description = "IDs of the network interfaces"
+  type        = list(string)
 }
 
 variable "image_publisher" {

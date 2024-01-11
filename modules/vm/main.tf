@@ -5,7 +5,7 @@ resource "azurerm_linux_virtual_machine" "pernik_vm" {
   location              = var.location
   size                  = var.vm_size
   admin_username        = var.admin_username
-  network_interface_ids = [var.network_interface_id[count.index]]
+  network_interface_ids = var.network_interface_id
   #custom_data           = base64encode(var.custom_data)
   disable_password_authentication = true
   # priority = "Spot"
