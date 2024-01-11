@@ -17,7 +17,9 @@ module "network" {
 
 module "vm" {
   source              = "./modules/vm"
-  vm_count            = var.vm_count  
+  vm_count            = var.vm_count
+  image_sku = var.image_sku
+  image_offer = var.image_offer
   resource_group_name = azurerm_resource_group.pernik.name
   location            = azurerm_resource_group.pernik.location
   vm_size             = var.instance_type

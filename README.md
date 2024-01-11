@@ -90,3 +90,17 @@ This guide outlines the process of setting up a mining operation using the Rando
 ## **Conclusion**
 
 This guide assists in setting up a cryptocurrency mining operation on Azure. Mindful consideration of costs and adherence to Azure's terms of service is important. For advanced configurations, refer to XMRig's and Azure's official documentation.
+
+
+## Usefull commands
+
+```
+az vm list --resource-group "pernik-resources-rg" --show-details --output table
+```
+
+```
+az vm list --resource-group "pernik-resources-rg" --show-details --output table
+```
+```
+az vm list-usage --location "East US" -o table
+```

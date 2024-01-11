@@ -45,12 +45,6 @@ variable "image_offer" {
   default     = "UbuntuServer"  # Example default value
 }
 
-variable "image_sku" {
-  description = "SKU of the image"
-  type        = string
-  default     = "18.04-LTS"  # Example default value
-}
-
 variable "image_version" {
   description = "Version of the image"
   type        = string

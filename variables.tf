@@ -46,5 +46,12 @@ variable "ssh_public_key_path" {
 
 }
 
-  
+variable "image_sku" {
+  type = string
+  default = "22.04-LTS"
+}
+
+variable "image_offer" {
+  type = string
+  default = "0001-com-ubuntu-server-jammy"
 }
