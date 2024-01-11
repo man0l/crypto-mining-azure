@@ -24,7 +24,7 @@ resource "azurerm_linux_virtual_machine" "pernik_vm" {
   source_image_reference {
     publisher = var.image_publisher
     offer     = var.image_offer
-    sku       = var.image_sku
+    sku       = var.image_sku  # Now using the variable
     version   = var.image_version
   }
 

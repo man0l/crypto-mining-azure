@@ -43,5 +43,12 @@ variable "ssh_public_key_path" {
   description = "Path to the SSH private key to use for connecting to the VM"
   type        = string
   default     = "~/.ssh/id_rsa.pub"  # Default value, can be overridden in tfvars
+
+}
+variable "image_sku" {
+  description = "SKU of the image"
+  type        = string
+  default     = "22.04-LTS"  # New default value for Ubuntu 22.04 LTS
+}
   
 }
